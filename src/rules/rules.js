@@ -17,12 +17,19 @@ function valeurCase(data, width, index){
 }
 
 export function tour(data, width, min, max){
+    let changes = 0
     let newData = data.map( (valeur, index)=> {
         const val = valeurCase(data, width, index)
-        return (val<=max && val>=min)?1:0;
+        let newValue =  (val<=max && val>=min)?1:0;
+        if (newValue != valeur)
+            changes ++;
+        return newValue;
     });
 
-    return newData;
+    return {
+            changes : changes,
+            data : newData
+        };
 } 
 
 export default tour;

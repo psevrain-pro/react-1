@@ -19,7 +19,8 @@ class App extends React.Component {
       height: 10,
       min: 3,
       max: 5,
-      turns: 0
+      turns: 0,
+      changes: 0
     };
 
     this.inputWidth = React.createRef();
@@ -47,18 +48,20 @@ class App extends React.Component {
       height: height,
       min: min,
       max: max,
-      turns:0
+      turns:0, 
+      changes : 0
     });
 
   }
 
   clickTour(){
-    const apres =  tour(this.state.data, this.state.width,this.state.min,this.state.max );
-    const turns = 1+this.state.turns;
+    const {data, changes} =  tour(this.state.data, this.state.width,this.state.min,this.state.max );
+    const turns = 1 + this.state.turns;
     this.setState(
       {
-        data: apres,
-        turns: turns
+        data: data,
+        turns: turns,
+        changes : changes
       }
     );
   }
@@ -96,6 +99,7 @@ class App extends React.Component {
           <div>
             <div>Nombre de tours : {this.state.turns}</div>
             <div>Nombre de cellules : {this.state.data.reduce((a,b)=> a+b)}</div>
+            <div>Ratio de changement : {this.state.changes} --> {this.state.changes*100/this.state.data.length}%</div>
             <button onClick={()=>this.clickTour()}>+1 tour</button>
           </div>
         </div>
