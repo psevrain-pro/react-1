@@ -19,7 +19,7 @@ function Row(props){
         <div>
         {listeC.map( 
             (item,index)=>
-                <Square onClick={()=>props.onClick((props.line*props.width)+index)} content={props.data[(props.line*props.width)+index]} />
+                <Square key={index} onClick={()=>props.onClick((props.line*props.width)+index)} content={props.data[(props.line*props.width)+index]} />
         )}
         </div>
     );
@@ -36,7 +36,7 @@ class Board extends React.Component {
             <div>
             {listeR.map( 
                 (item,index)=>
-                    <Row width={this.props.width} data={this.props.data} line={index} onClick={this.props.onClick}/>
+                    <Row key={index} width={this.props.width} data={this.props.data} line={index} onClick={this.props.onClick}/>
             )}
             </div>
         );

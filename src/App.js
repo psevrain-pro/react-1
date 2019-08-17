@@ -18,21 +18,48 @@ class App extends React.Component {
       width: 10,
       height: 10,
       min: 3,
-      max: 5
+      max: 5,
+      turns: 0
     };
+
+    this.inputWidth = React.createRef();
+    this.inputHeight = React.createRef();
+    this.inputMin = React.createRef();
+    this.inputMax = React.createRef();
+
   }
 
 
-  clickRaz(){
-    const newData = this.state.data.slice();
-    newData.fill(0);
-    this.setState({data: newData});
+  initGame(){
+    
+    //get values
+    const width= this.inputWidth.current.value;
+    const height= this.inputHeight.current.value;
+    const min= this.inputMin.current.value;
+    const max= this.inputMax.current.value;
+
+    const initData=new Array(width*height);
+    initData.fill(0);
+
+    this.setState ({
+      data: initData,
+      width: width,
+      height: height,
+      min: min,
+      max: max,
+      turns:0
+    });
+
   }
 
   clickTour(){
     const apres =  tour(this.state.data, this.state.width,this.state.min,this.state.max );
+    const turns = 1+this.state.turns;
     this.setState(
-      {data: apres}
+      {
+        data: apres,
+        turns: turns
+      }
     );
   }
 
@@ -48,15 +75,30 @@ class App extends React.Component {
         <header className="App-header">
           <img src={logo} className="App-logo" alt="logo" />
           <p>
-            Edit <code>src/App.js</code> and save to reload.
+            le jeu de la vie
           </p>
-          
-          <Board data={this.state.data} width={this.state.width} height={this.state.height} onClick={(i)=>this.clickCase(i)}></Board>
-
-          <button onClick={()=>this.clickTour()}>+1 tour</button>
-          <button onClick={()=>this.clickRaz()}>R à Z</button>
-
         </header>
+        <div className="App-body">
+          <div className="Parametres-box">
+            <div>Largeur : <input defaultValue={this.state.width} ref={this.inputWidth} /></div>    
+            <div>Hauteur : <input defaultValue={this.state.height} ref={this.inputHeight} /></div>      
+            <div>Voisins min : <input defaultValue={this.state.min} ref={this.inputMin} /></div>   
+            <div>Voisins max : <input defaultValue={this.state.max} ref={this.inputMax} /></div>
+            <div>
+              <button onClick={()=>this.initGame()}>Recommencer</button>
+            </div>
+
+          </div>
+
+          <div>
+            <Board data={this.state.data} width={this.state.width} height={this.state.height} onClick={(i)=>this.clickCase(i)}></Board>
+          </div>
+          <div>
+            <div>Nombre de tours : {this.state.turns}</div>
+            <div>Nombre de cellules : {this.state.data.reduce((a,b)=> a+b)}</div>
+            <button onClick={()=>this.clickTour()}>+1 tour</button>
+          </div>
+        </div>
       </div>
     );
   }

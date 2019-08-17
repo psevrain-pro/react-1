@@ -1,9 +1,10 @@
 
 function valeurCase(data, width, index){
     //const index = (y*width + x);
-    const offsets =[-width-1, -width, -width+1,
+    const N = Number(width);
+    const offsets =[-N-1, -N, -N+1,
     -1 , +1,
-    width-1, width, width+1]
+    N-1, N, N+1]
 
     const somme = offsets.reduce( (a,b) => {
         if (index+b >=0 && index+b < data.length)
@@ -11,6 +12,7 @@ function valeurCase(data, width, index){
         else 
             return a; }
         ,0);
+        
     return somme;
 }
 
