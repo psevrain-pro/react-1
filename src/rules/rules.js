@@ -16,6 +16,11 @@ function valeurCase(data, width, index){
     return somme;
 }
 
+/*
+Utilisé pour passer un tout
+Retourne le tableau de jeu mis à jour et le nombre de changements par rapport au tableau initial
+
+*/
 export function tour(data, width, min, max){
     let changes = 0
     let newData = data.map( (valeur, index)=> {
